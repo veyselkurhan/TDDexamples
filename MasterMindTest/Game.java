@@ -1,11 +1,17 @@
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Collections;
 public class Game {
-final int realnumber=1234;
+ int realnumber;
+ 
 int counter=0;
 ArrayList<Integer>digits=new ArrayList<Integer>();
 
 Predictions lastPrediction=new Predictions();
+public Game()
+{
+	realnumber=createRandomNumber();
+}
 public boolean correctPrediction(int a)
 {
 	if(a==realnumber)return true;
@@ -62,5 +68,40 @@ public void finish(){
 }
 public int getCounter(){
 	return counter++;
+}
+public int createRandomNumber()
+{
+	ArrayList<Integer>numbers=new ArrayList<Integer>();
+	ArrayList<Integer>random=new ArrayList<Integer>();
+	for(int a=0;a<10;a++)
+		numbers.add(a);
+	Collections.shuffle(numbers);
+	for(int a=0;a<4;a++)
+	{
+		if(a==0)
+		{
+			while(numbers.get(a)==0)
+			{
+				Collections.shuffle(numbers);
+				
+			}
+		random.add(numbers.get(a));	
+		}
+		else
+		{
+			while(random.contains(numbers.get(a)))
+			{
+				Collections.shuffle(numbers);
+			}
+			random.add(numbers.get(a));
+		}
+		String randomNumber="";
+		for(int c=0;c<random.size();c++)
+		{
+			randomNumber+=random.get(c);
+		}
+		realnumber=Integer.parseInt(randomNumber);
+			}
+return realnumber;
 }
 }
